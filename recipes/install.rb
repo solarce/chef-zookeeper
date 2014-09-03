@@ -19,6 +19,11 @@ if node[:zookeeper][:use_java_cookbook] == true
   node.override[:apt][:compiletime] = true
 
   include_recipe 'apt::default'
+
+  execute 'apt-get update' do
+    action :nothing
+  end.run_action(:run)
+
   include_recipe 'build-essential::default'
   include_recipe 'java::default'
 else
